@@ -10,6 +10,17 @@ var express = require('express'),
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
+  (function(){
+    // tail -f /var/log/apache2/access.log
+    // if there are new data in stdout, send it through existing socket
+    var spawn = require('child_process').spawn,
+        ls    = spawn('tail', ['-f', '/var/log/apache2/access.log']);
+
+    ls.stdout.on('data', function (data) {
+      socket.send(data);
+    });
+  })();
+
   socket.on('message', function(v){
     // echo
     socket.send(v);
