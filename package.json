@@ -1,0 +1,21 @@
+{
+  "name": "eko",
+  "version": "0.0.1",
+  "private": true,
+  "description": "just another echo :P",
+  "author": {
+    "name": "Leonardo Situmorang",
+    "email": "leonardo@situmorang.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:killedbymemory/eko.git" 
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "engine.io": "0.7.10"
+  },
+  "engines": {
+    "node": ">= 0.10.9"
+  }
+}

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Websocket</title>
+    <script src="//localhost:3000/engine.io.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      function init() {
+        "use strict";
+
+        // `socket` globally accessible
+        var socket = window.socket = new eio.Socket('ws://localhost:3000/');
+        socket.on('open', function () {
+          var output;
+
+          socket.on('message', function (data) {
+            output = output || document.getElementById('output');
+            output.innerHTML += "<div style='margin-bottom:5px;padding:10px;background-color:rgb(241, 241, 241);'>" + data + "</div>";
+          });
+
+          socket.on('close', function () {});
+
+          socket.send('random!');
+        });
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="output"></div>
+  </body>
+</html> 
