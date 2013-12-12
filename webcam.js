@@ -26,6 +26,7 @@ app.get('/webcam.webm', function(req, res){
     '-s', '640x480', // frame size
     '-i', '/dev/video0', // source/input  
     '-vcodec', 'libvpx', // video codec
+    //'-acodec', 'libvorbis', // audio codec
     '-an', // no audio
     '-f', 'webm', // force output format
     '-' // output to stdout
