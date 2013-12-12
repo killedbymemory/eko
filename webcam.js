@@ -40,6 +40,28 @@ app.get('/webcam.webm', function(req, res){
   });
 });
 
+// serve static file
+app.get('/pilot.webm', function(req, res){
+  res.writeHead(200, {
+    'Content-Type': 'video/webm'
+  });
+
+  require('fs').readFile('./public/videos/pilot-audio.webm', function(err, data){
+    if (err) {
+      throw err;
+    }
+
+    // res is Writeable Stream
+    // file:///home/leonardo/Softwares/nodejs/node-v0.10.9/doc/api/stream.html#stream_writable_write_chunk_encoding_callback_1
+    // we can always track if it's taking too long to serve this file and we need to cut off.
+    res.write(data);
+  });
+
+  res.on('close', function(){
+    
+  });
+});
+
 io.on('connection', function(socket){
   (function(){
     // tail -f /var/log/apache2/access.log
