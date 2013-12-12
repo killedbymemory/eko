@@ -20,8 +20,18 @@ app.get('/webcam.webm', function(req, res){
   });
 
   // start ffmpeg
-  var ffmpeg = require('child_process').spawn('ffmpeg', ['-f', 'video4linux2', '-r', '25', '-s', '640x480', '-i', '/dev/video0', '-vcodec', 'libvpx', '-an', '-f', 'webm', '-']);
+  var ffmpeg = require('child_process').spawn('ffmpeg', [
+    '-f', 'video4linux2', // force input format
+    '-r', '25', // frame rate
+    '-s', '640x480', // frame size
+    '-i', '/dev/video0', // source/input  
+    '-vcodec', 'libvpx', // video codec
+    '-an', // no audio
+    '-f', 'webm', // force output format
+    '-' // output to stdout
+  ]);
 
+  // pipe ffmpeg output to res(ponse) Writable Stream
   ffmpeg.stdout.pipe(res);
 
   res.on('close', function(){
