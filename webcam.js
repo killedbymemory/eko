@@ -4,7 +4,7 @@ var express = require('express'),
     app = express(),
     webcam_server = require('http').createServer(app),
     eko_server = require('http').createServer(app),
-    io = require('engine.io').attach(eko_server);
+    io = require('engine.io').attach(webcam_server);
 
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
@@ -57,12 +57,6 @@ io.on('connection', function(socket){
   });
 });
 
-webcam_server.listen(3001, function(){
-  console.log(arguments);
-  console.log('listening on localhost:3001');
-});
-
-eko_server.listen(3000, function(){
-  console.log(arguments);
-  console.log('listening on localhost:3000');
+webcam_server.listen(3000, function(){
+  console.log('webcam listening on localhost:3000');
 });
